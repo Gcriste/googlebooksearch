@@ -16,13 +16,11 @@ class Books extends Component {
   };
 
   componentDidMount() {
-    this.loadBooks("The Cat and the Hat");
+    this.loadBooks();
   }
 
-
-
-  loadBooks = query => {
-    API.getBooks(query)
+  loadBooks = () => {
+    API.getBooks()
       .then(res =>
         this.setState({ books: res.data, title: "", author: "", synopsis: "" })
       )

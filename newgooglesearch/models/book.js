@@ -8,9 +8,10 @@ const bookSchema = new Schema({
   author: {
      type: String, required: true 
     },
- description: String,
+ synopsis: String,
   image: String,
-  link:String
+  link:String,
+  date: { type: Date, default: Date.now }
 
 });
 
