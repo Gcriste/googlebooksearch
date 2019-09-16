@@ -4,7 +4,7 @@ import { Col, Row, Container } from "../components/Grid";
 import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
 
-class Detail extends Component {
+class Saved extends Component {
   state = {
     book: {}
   };
@@ -40,7 +40,7 @@ class Detail extends Component {
         </Row>
         <Row>
           <Col size="md-2">
-            <Link to="/">← Back to Authors</Link>
+            <Link to="/">← Back to Book search</Link>
           </Col>
         </Row>
       </Container>
@@ -48,4 +48,4 @@ class Detail extends Component {
   }
 }
 
-export default Detail;
+export default Saved;

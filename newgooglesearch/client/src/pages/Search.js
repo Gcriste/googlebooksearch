@@ -5,9 +5,9 @@ import API from "../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
 import { List, ListItem } from "../components/List";
-import { Input, TextArea, FormBtn } from "../components/Form";
+import { Input, TextArea, FormBtn, SaveBtn } from "../components/Form";
 
-class Books extends Component {
+class Search extends Component {
   state = {
     books: [],
     title: "",
@@ -81,11 +81,18 @@ class Books extends Component {
                 placeholder="Synopsis (Optional)"
               />
               <FormBtn
-                disabled={!(this.state.author && this.state.title)}
+              
+                // onClick={this.handleFormSubmit}
+              >
+                Search for Book
+              </FormBtn>
+              <SaveBtn
+               disabled={!(this.state.author && this.state.title)}
                 onClick={this.handleFormSubmit}
               >
-                Submit Book
-              </FormBtn>
+               Save Book
+              </SaveBtn>
+
             </form>
           </Col>
           <Col size="md-6 sm-12">
@@ -96,7 +103,7 @@ class Books extends Component {
               <List>
                 {this.state.books.map(book => (
                   <ListItem key={book._id}>
-                    <Link to={"/books/" + book._id}>
+                    <Link to={"/saved/" + book._id}>
                       <strong>
                         {book.title} by {book.author}
                       </strong>
@@ -115,4 +122,4 @@ class Books extends Component {
   }
 }
 
-export default Books;
+export default Search;

@@ -25,3 +25,11 @@ export function FormBtn(props) {
     </button>
   );
 }
+
+export function SaveBtn(props) {
+  return (
+    <button {...props} style={{ float: "right", marginBottom: 10 }} className="btn btn-primary">
+      {props.children}
+    </button>
+  );
+}
