@@ -1,18 +1,17 @@
 import React, { Component } from "react";
-import DeleteBtn from "../components/DeleteBtn";
 import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../components/Grid";
-import { List, ListItem } from "../components/List";
-import { Input, TextArea, FormBtn, SaveBtn } from "../components/Form";
+import Form from "../components/Form";
+import SearchResult from "../components/SearchResults";
 
 class Search extends Component {
   state = {
     books: [],
-    title: "",
-    author: "",
-    synopsis: ""
+    search: "",
+    error: "",
+    message: ""
   };
 
   componentDidMount() {
@@ -27,31 +26,55 @@ class Search extends Component {
       .catch(err => console.log(err));
   };
 
-  deleteBook = id => {
-    API.deleteBook(id)
-      .then(res => this.loadBooks())
-      .catch(err => console.log(err));
-  };
+
 
   handleInputChange = event => {
-    const { name, value } = event.target;
     this.setState({
-      [name]: value
+      search: event.target.value
     });
   };
 
   handleFormSubmit = event => {
     event.preventDefault();
-    if (this.state.title && this.state.author) {
-      API.saveBook({
-        title: this.state.title,
-        author: this.state.author,
-        synopsis: this.state.synopsis
-      })
-        .then(res => this.loadBooks())
-        .catch(err => console.log(err));
-    }
-  };
+
+      API.GoogleSearch(this.state.search)
+        .then(res => {
+         if (res.data.items === "error"){
+          throw new Error(res.data.items);
+        }
+      else{
+        let results = res.data.items
+
+        results = results.map(result => {
+          result = {
+            key:result.id,
+            id:result.id,
+            title:result.volumeInfo.title,
+            author:result.volumeInfo.authors,
+            description:result.VolumeInfo.description,
+            image:result.VolumeInfo.imageLinks.thumbnail,
+            link:result.VolumeInfo.infoLink
+          }
+          return result;
+        })
+        this.setState({books:results, error: ""})
+
+  }
+})
+  .catch(err => this.setState({error:err.items}))
+} 
+
+handleSavedBooks = event =>{
+  event.preventDefault();
+  console.log(this.state.books)
+
+  let savedBooks = this.state.books.filter(book => book.id === event.target.id)
+  savedBooks = savedBooks[0];
+  API.saveBook(savedBooks)
+  .then(this.setState({ message: alert("You saved the book: " + savedBooks)}))
+  .catch (err => console.log(err))
+}
+
 
   render() {
     return (
@@ -59,34 +82,23 @@ class Search extends Component {
         <Row>
           <Col size="md-6">
             <Jumbotron>
-              <h1>What Books Should I Read?</h1>
+              <h1>Search for your favorite books through the Google Api!</h1>
             </Jumbotron>
-            <form>
-              <Input
-                value={this.state.title}
-                onChange={this.handleInputChange}
-                name="title"
-                placeholder="Title (required)"
+      
+              <Form
+               handleFormSubmit={this.handleFormSubmit}
+                handleInputChange ={this.handleInputChange}
               />
-              <Input
-                value={this.state.author}
-                onChange={this.handleInputChange}
-                name="author"
-                placeholder="Author (required)"
-              />
-              <TextArea
-                value={this.state.synopsis}
-                onChange={this.handleInputChange}
-                name="synopsis"
-                placeholder="Synopsis (Optional)"
-              />
-              <FormBtn
-              
-                // onClick={this.handleFormSubmit}
-              >
-                Search for Book
-              </FormBtn>
-              <SaveBtn
+          </Col>
+        <Container>
+          <SearchResult 
+          books ={this.state.books} 
+          SaveBook = {this.state.SaveBook}
+          />
+        </Container>
+        </Row>
+      </Container>
+              /* <SaveBtn
                disabled={!(this.state.author && this.state.title)}
                 onClick={this.handleFormSubmit}
               >
@@ -115,9 +127,8 @@ class Search extends Component {
             ) : (
               <h3>No Results to Display</h3>
             )}
-          </Col>
-        </Row>
-      </Container>
+          </Col> */
+      
     );
   }
 }

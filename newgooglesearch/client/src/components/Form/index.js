@@ -18,7 +18,7 @@ const Form = props => {
 
 
     <button type="submit" 
-        className="submitBtn btn btn-primary" 
+        className="FormBtn btn btn-primary" 
         onClick={props.handleFormSubmit}>
                 Submit
    </button>
