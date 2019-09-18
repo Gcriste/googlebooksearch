@@ -28,6 +28,7 @@ class SearchBooks extends Component {
             .then(res => {
                 if (res.data.items === "error") {
                     throw new Error(res.data.items);
+                 
                 }
                 else {
                     // store response in a array
@@ -60,14 +61,14 @@ class SearchBooks extends Component {
         let savedBooks = this.state.books.filter(book => book.id === event.target.id)
         savedBooks = savedBooks[0];
         API.saveBook(savedBooks)
-            .then(this.setState({ message: alert("Your book is saved") }))
+            .then(this.setState({ message: alert("Your saved the book " + savedBooks.title) }))
             .catch(err => console.log(err))
     }
     render() {
         return (
             <Container fluid>
                 <Jumbotron>
-                    <h1 className="text-white">Find Your Favorite Books with GoogleBook API</h1>
+                    <h1 className="text-black">Search for your favorite book through the Google Api!</h1>
                 </Jumbotron>
                 <Container>
                     <Row>
