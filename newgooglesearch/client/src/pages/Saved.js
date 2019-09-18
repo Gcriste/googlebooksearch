@@ -6,42 +6,35 @@ import SavedResult from "../components/SavedList"
 
 class Saved extends Component {
   state = {
-    savedBooks:[]
+      savedBooks: []
   };
-  // When this component mounts, grab the book with the _id of this.props.match.params.id
-  // e.g. localhost:3000/books/599dcb67f0f16317844583fc
+
+  //when this component mounts, grab all books that were save to the database 
   componentDidMount() {
-    API.getBook()
-      .then(res => this.setState({ savedBooks: res.data }))
-      .catch(err => console.log(err));
+      API.getBooks()
+          .then(res => this.setState({ savedBooks: res.data }))
+          .catch(err => console.log(err))
   }
 
-  handleDeleteButtton = id => {
-    API.deleteBook(id)
-    .then(res => this.componentDidMount())
-    .catch(err => console.log(err))
+  //function to remove book by id
+  handleDeleteButton = id => {
+      API.deleteBook(id)
+          .then(res => this.componentDidMount())
+          .catch(err => console.log(err))
   }
-
 
   render() {
-    return (
-      <Container fluid className = "container">
-        <Row>
-          <Col size="md-12">
-            
-            <Jumbotron>
-              <SavedResult
-              savedBooks = {this.state.savedBooks}
-              handleDeleteButton = {this.handleDeleteButton}
-              />
-            </Jumbotron>
-          </Col>
-        </Row>
-      </Container>
-    )
-
+      return (
+          <Container fluid className="container">
+              <Jumbotron />
+              <Container>
+                  <SavedResult savedBooks={this.state.savedBooks} handleDeleteButton={this.handleDeleteButton} />
+              </Container>
+          </Container>
+      )
   }
 }
+
 
 
 export default Saved;
