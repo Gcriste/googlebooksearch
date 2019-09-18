@@ -37,7 +37,7 @@ class Search extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
 
-      API.GoogleSearch(this.state.search)
+      API.googleSearch(this.state.search)
         .then(res => {
          if (res.data.items === "error"){
           throw new Error(res.data.items);
@@ -93,7 +93,7 @@ handleSavedBooks = event =>{
         <Container>
           <SearchResult 
           books ={this.state.books} 
-          SaveBook = {this.state.SaveBook}
+          handleSavedBooks = {this.handleSavedBooks}
           />
         </Container>
         </Row>

@@ -19,13 +19,21 @@ const SearchResult = props => {
                     {props.books.map(book => {                            
                         return (
                             <li className="search-list list-group-item">
-                                <Row className="SearchResult row" id={book.title + "Card"} key={book._id}>
-                                    <Col size="2" className="bookImage">
-                                         <img src={book.image} alt={book.title} />
+                                <Row 
+                                className="SearchResult row" 
+                                id={book.title + "Card"} 
+                                key={book._id}>
+                                    <Col 
+                                    size="2" 
+                                    className="bookImage">
+                                         <img 
+                                         src={book.image} 
+                                         alt={book.title} />
                                     </Col>
-                                     <Col size="1" className="emptyCol"/>
                                
-                                    <Col size="9" className="bookInfo">
+                                    <Col 
+                                    size="9" 
+                                    className="bookInfo">
                                         <Row>
                                             <h3 className="bookTitle">{book.title}</h3>
                                          </Row>
@@ -40,7 +48,9 @@ const SearchResult = props => {
 
                                     <br></br>
                                 <Row className="buttonDiv ">
-                                     <button className="saveBook btn btn-primary" id={book.id} onClick={(event) => props.handleSavedButton(event)}>
+                                     <button className="saveBook btn btn-primary" 
+                                     id={book.id} 
+                                     onClick={(event) => props.handleSavedBooks(event)}>
                                          Save Book
                                     </button>
                                      <a href={book.link} target="_blank">
