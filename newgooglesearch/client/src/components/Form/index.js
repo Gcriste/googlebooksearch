@@ -2,7 +2,7 @@ import React from "react";
 
 // This file exports the Input, TextArea, and FormBtn components
 
-const Form = props => {
+const SearchForm = props => {
 
   return (
     <form>
@@ -20,11 +20,11 @@ const Form = props => {
 
 
     <button type="submit" 
-        className="FormBtn btn btn-primary" 
+        className="submitBtn btn btn-primary" 
         onClick={props.handleFormSubmit}>
                 Submit
    </button>
    </form>
   )
 }
-export default Form;
+export default SearchForm;

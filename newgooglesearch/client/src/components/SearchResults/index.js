@@ -50,7 +50,7 @@ const SearchResult = props => {
                                 <Row className="buttonDiv ">
                                      <button className="saveBook btn btn-primary" 
                                      id={book.id} 
-                                     onClick={(event) => props.handleSavedBooks(event)}>
+                                     onClick={(event) => props.handleSavedButton(event)}>
                                          Save Book
                                     </button>
                                      <a href={book.link} target="_blank">
