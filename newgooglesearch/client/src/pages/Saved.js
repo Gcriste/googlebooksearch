@@ -21,6 +21,7 @@ class Saved extends Component {
       <Container fluid>
         <Row>
           <Col size="md-12">
+            
             <Jumbotron>
               <h1>
                 {this.state.book.title} by {this.state.book.author}
