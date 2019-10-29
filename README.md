@@ -6,3 +6,6 @@
 
 ### Technologies Used: 
 Reactjs, Javascript, CSS, Bootstrap, Express, Axios
+
+### Creator
+-I am the sole creator and owner. @GriffinCriste
